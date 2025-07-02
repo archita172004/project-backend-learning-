@@ -22,8 +22,8 @@ connectDB()
 /*
 import express from "express";
 const app = express();
-
-(async () => {
+import {DB_NAME} from "./constants"
+;(async () => {
   try {
     await mongoose.connect(`$process.env.MONGODB_URI`);
     app.on("error", (error) => {
@@ -34,6 +34,7 @@ const app = express();
     app.listen(process.env.PORT, () => {
       console.log(`App listening on port ${process.env.PORT}`);
     });
+
   } catch (error) {
     console.error("Error: ", error);
     throw err;
