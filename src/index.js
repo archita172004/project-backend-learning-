@@ -6,13 +6,18 @@ dotenv.config({
   path: "./env",
 });
 
+//after connecting to database we will listen to the return promise using then and catch
+//
 connectDB()
   .then(() => {
+    //listning to the app on port 8000
     app.listen(process.env.PORT || 8000, () => {
       console.log(`Server is running in port ${process.env.PORT}`);
     });
 
-    app.on("error", error);
+    app.on("error", (error) => {
+      console.log("Not able to connect to database", error);
+    });
     throw error;
   })
   .catch((err) => {
