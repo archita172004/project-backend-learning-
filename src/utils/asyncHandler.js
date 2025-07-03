@@ -6,6 +6,7 @@ const asyncHandler = (requestHandler) => {
 
 export { asyncHandler };
 
+//Higher order function accepting fn(another function as argument)
 // const asyncHandler = (fn) => async (req, res, next) => {
 //   try {
 //     await fn(re, res, next);
