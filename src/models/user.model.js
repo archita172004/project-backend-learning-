@@ -20,8 +20,8 @@ const userSchema = new Schema(
     fullname: {
       type: String,
       required: true,
-      trim: true,
       index: true,
+      trim: true,
     },
     avatar: {
       type: String, //cloudinary url
@@ -30,7 +30,7 @@ const userSchema = new Schema(
     coverImage: {
       type: String,
     },
-    warchHistory: [
+    watchHistory: [
       {
         type: Schema.Types.ObjectId,
         ref: "Video",
@@ -38,7 +38,7 @@ const userSchema = new Schema(
     ],
     password: {
       type: String,
-      required: [true, "password is required"],
+      required: [true, "Password is required"],
     },
     refreshToken: {
       type: String,
