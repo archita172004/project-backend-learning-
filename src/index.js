@@ -34,7 +34,7 @@ import {DB_NAME} from "./constants"
     app.on("error", (error) => {
       console.log("not able to talk to database", error);
       throw error;
-    });
+    }); 
  
     app.listen(process.env.PORT, () => {
       console.log(`App listening on port ${process.env.PORT}`);
