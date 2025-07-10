@@ -18,7 +18,6 @@ connectDB()
     app.on("error", (error) => {
       console.log("Not able to connect to database", error);
     });
-    throw error;
   })
   .catch((err) => {
     console.log("mongo db connection failed", err);
