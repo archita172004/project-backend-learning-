@@ -114,7 +114,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const { email, username, password } = req.body;
 
-  if (!username || !email) {
+  if (!username && !email) {
     throw new ApiError(400, "username or email is required");
   }
 
@@ -128,6 +128,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   //here we will use user (the instance created ) and not User bcz User is provided by mongoose . methods like find and insert will be available to User .
   // user on the other hand have the methods we defined in the model schema methods
+
   const isPasswordValid = await user.isPasswordCorrect(password);
 
   if (!isPasswordValid) {
