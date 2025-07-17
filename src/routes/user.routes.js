@@ -11,7 +11,7 @@ const router = Router();
 
 router.route("/register").post(
   upload.fields([
-    // defines options  how many u want to upload the files
+    // defines options how many u want to upload the files
     // then define the number of objects u want
     {
       name: "avatar",
