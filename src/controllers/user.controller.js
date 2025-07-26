@@ -458,6 +458,10 @@ const getWatchHistory = asyncHandler(async (req, res) => {
     );
 });
 
+const getVideo = asyncHandler(async (req, res) => {});
+
+const addVideoToWatchHistory = asyncHandler(async (req, res) => {});
+
 export {
   registerUser,
   loginUser,
@@ -469,4 +473,5 @@ export {
   updateUserCoverImage,
   getUserChannelProfile,
   getWatchHistory,
+  changeCurrentPassword,
 };
