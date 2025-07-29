@@ -4,7 +4,7 @@ import { User } from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
-
+import mongoose from "mongoose";
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
     const user = await User.findById(userId);
@@ -169,11 +169,15 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
-  await User.findByIdAndUpdate(req.user._id, {
-    $set: {
-      refreshToken: undefined,
+  await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $unset: {
+        refreshToken: 1, // this removes the field from document
+      },
     },
-  });
+    { new: true }
+  );
 
   const options = {
     httpOnly: true,
@@ -383,8 +387,8 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
       $project: {
         fullName: 1,
         username: 1,
-        subscriberCount: 1,
-        channelsSubscribedToCount: 1,
+        subscribersCount: 1,
+        channelsSubcribedToCount: 1,
         isSubscribed: 1,
         avatar: 1,
         coverImage: 1,
@@ -408,7 +412,7 @@ const getWatchHistory = asyncHandler(async (req, res) => {
   const user = await User.aggregate([
     {
       $match: {
-        _id: new mongoose.Types.ObjectId(req.user_id),
+        _id: new mongoose.Types.ObjectId(req.user._id),
       },
     },
     {
@@ -452,15 +456,11 @@ const getWatchHistory = asyncHandler(async (req, res) => {
     .json(
       new ApiResponse(
         200,
-        user[0].getWatchHistory,
+        user[0].watchHistory || [],
         "Watch History fetched succesfully"
       )
     );
 });
-
-const getVideo = asyncHandler(async (req, res) => {});
-
-const addVideoToWatchHistory = asyncHandler(async (req, res) => {});
 
 export {
   registerUser,
